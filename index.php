@@ -9,18 +9,12 @@ $route->get('/', function () {
 $route->get('/posts', function () {
     echo "Tous les articles";
 });
-$route->get('/posts/:id', function ($id) {
-    echo "L'ariticle " . $id;
-});
+$route->get('/posts/:id-:slug', function ($id, $slug) {
+    echo $slug . ' : ' . $id;
+})->with('id', '[0-9]+')->with('slug', '([a-z\0-9]+)');
 
-?>
-<form action="" method="post">
-    <input type="text" name="name">
-    <input type="submit" value="Envoyer">
-</form>
-<?php
-$route->post('/posts/salut-les-8', function () {
-    echo "Tous les articles";
+$route->post('/posts/:id', function ($id) {
+    echo $id, $_POST["name"];
 });
 
 $route->run();
